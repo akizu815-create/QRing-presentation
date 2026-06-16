@@ -15,22 +15,25 @@
     font-family: 'Noto Sans JP', system-ui, sans-serif;
   }
   .viewer {
-    width: min(92vw, 1280px);
-    height: min(75vh, calc(min(92vw, 1280px) * 9 / 16));
-    aspect-ratio: 16 / 9;
+    width: 1280px;
+    height: 720px;
     box-shadow: 0 24px 64px rgba(0,0,0,0.4);
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+  }
+  .viewer-frame {
     position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
   }
   iframe {
     width: 1280px;
     height: 720px;
     border: none;
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top left;
   }
   .nav {
     display: flex;
@@ -68,8 +71,10 @@
 </head>
 <body>
 
-<div class="viewer">
-  <iframe id="slideFrame" src="s01.html"></iframe>
+<div class="viewer-frame" id="viewerFrame">
+  <div class="viewer" id="viewer">
+    <iframe id="slideFrame" src="s01.html"></iframe>
+  </div>
 </div>
 
 <div class="nav">
@@ -100,10 +105,20 @@
   });
 
   function scaleFrame() {
-    const viewer = document.querySelector('.viewer');
-    const frame = document.getElementById('slideFrame');
-    const scale = viewer.clientWidth / 1280;
-    frame.style.transform = `scale(${scale})`;
+    const viewerFrame = document.getElementById('viewerFrame');
+    const viewer = document.getElementById('viewer');
+
+    // Reserve space for the nav row and outer margins.
+    const availableWidth = window.innerWidth * 0.92;
+    const availableHeight = window.innerHeight - 96;
+
+    // Scale by whichever dimension is the tighter constraint, so the
+    // 16:9 slide is never stretched and never clipped at the bottom.
+    const scale = Math.min(availableWidth / 1280, availableHeight / 720, 1);
+
+    viewer.style.transform = `scale(${scale})`;
+    viewerFrame.style.width = `${1280 * scale}px`;
+    viewerFrame.style.height = `${720 * scale}px`;
   }
 
   window.addEventListener('resize', scaleFrame);
