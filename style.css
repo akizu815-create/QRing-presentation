@@ -286,6 +286,10 @@ body {
   line-height: 1;
 }
 
+.headline-sm.step-highlight {
+  color: var(--moss);
+}
+
 .arrow {
   display: flex;
   align-items: center;
