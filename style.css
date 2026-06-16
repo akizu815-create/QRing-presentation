@@ -1,9 +1,9 @@
-/* =========================================================
-   つながるQR — Presentation Common Style
-   Inherits QRing brand language (see /DESIGN.md)
-   ========================================================= */
+/* ===========================================================
+   つながるQR — 大手企業マッチングイベント プレゼン資料
+   共通スタイルシート（QRing DESIGN.md準拠 / プレミアム・ミニマリズム）
+   =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Noto+Serif+JP:wght@300;500&family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
 :root {
   /* Colors */
@@ -11,6 +11,9 @@
   --cream: #EFE9DD;
   --sand: #E2D7C2;
   --ink: #1F1A14;
+  --ink-80: rgba(31, 26, 20, 0.8);
+  --ink-30: rgba(31, 26, 20, 0.3);
+  --ink-10: rgba(31, 26, 20, 0.1);
   --moss: #5B6E4F;
   --deepmoss: #3F4F36;
   --gold: #B8954B;
@@ -23,9 +26,9 @@
   --space-lg: 48px;
   --space-xl: 96px;
 
-  /* Slide canvas (16:9) */
-  --slide-w: 1280px;
-  --slide-h: 720px;
+  /* Containers */
+  --container-wide: 1280px;
+  --container-narrow: 960px;
 }
 
 * {
@@ -35,135 +38,324 @@
 }
 
 html, body {
-  background: var(--ink);
+  background-color: var(--cream);
+}
+
+body {
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  color: var(--ink);
+  font-feature-settings: "palt";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-body {
-  font-family: 'Noto Sans JP', system-ui, sans-serif;
-  color: var(--ink);
-  font-feature-settings: "palt";
+::selection {
+  background: rgba(91, 110, 79, 0.2);
 }
 
 /* ---------------------------------------------------------
-   Slide canvas — every s##.html wraps content in .slide
+   Slide shell — 16:9 を基準に、ビューポートへ収める
    --------------------------------------------------------- */
+
 .slide {
-  width: var(--slide-w);
-  height: var(--slide-h);
-  background: var(--ivory);
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 720px;
+  background-color: var(--ivory);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: var(--space-xl);
 }
 
-.slide--cream { background: var(--cream); }
-.slide--ink   { background: var(--ink); color: var(--ivory); }
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grain texture overlay */
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(circle, var(--ink) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* ---------------------------------------------------------
+   Header / Footer
+   --------------------------------------------------------- */
+
+.slide-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.brand-mark {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.brand-mark em {
+  font-style: italic;
+  color: var(--moss);
+}
+
+.slide-page {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--ink-30);
+}
+
+.slide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--ink-10);
+}
+
+.slide-footer .footer-note {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-30);
+}
 
 /* ---------------------------------------------------------
    Typography
    --------------------------------------------------------- */
-.display {
-  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
-  font-size: 5.5rem;
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.display-italic {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 300;
-}
-
-.h2-section {
-  font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
-  font-size: 2.5rem;
-  font-weight: 300;
-  line-height: 1.2;
-}
 
 .eyebrow {
-  font-family: 'Noto Sans JP', system-ui, sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--moss);
+  margin-bottom: var(--space-xs);
 }
 
-.body-jp {
-  font-family: 'Noto Sans JP', system-ui, sans-serif;
-  font-size: 1rem;
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--moss);
+  margin-right: var(--space-sm);
+  vertical-align: middle;
+}
+
+.headline {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--moss);
+}
+
+.headline-sm {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-weight: 300;
+  font-size: 1.625rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.lead {
+  font-family: "Noto Sans JP", sans-serif;
   font-weight: 400;
-  line-height: 2;
-  color: rgba(31, 26, 20, 0.8);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink-80);
 }
-
-.slide--ink .body-jp { color: rgba(247, 244, 238, 0.8); }
 
 .label-caps {
-  font-family: 'Noto Sans JP', system-ui, sans-serif;
-  font-size: 0.875rem;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--moss);
 }
 
-/* ---------------------------------------------------------
-   Decorative components
-   --------------------------------------------------------- */
 .hairline {
   width: 48px;
   height: 1px;
   background: rgba(91, 110, 79, 0.6);
+  margin: var(--space-md) 0;
 }
-
-.page-number {
-  position: absolute;
-  bottom: var(--space-lg);
-  right: var(--space-xl);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.875rem;
-  letter-spacing: 0.1em;
-  color: rgba(31, 26, 20, 0.4);
-}
-
-.slide--ink .page-number { color: rgba(247, 244, 238, 0.4); }
-
-.brand-mark {
-  position: absolute;
-  top: var(--space-lg);
-  left: var(--space-xl);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.9375rem;
-  letter-spacing: 0.05em;
-  color: rgba(31, 26, 20, 0.5);
-}
-
-.slide--ink .brand-mark { color: rgba(247, 244, 238, 0.5); }
 
 /* ---------------------------------------------------------
-   Motion
+   Layout helpers
    --------------------------------------------------------- */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+
+.slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 0;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--ink-10);
 }
 
-.fade-up { animation: fade-up 1.2s ease-out both; }
-.fade-in { animation: fade-in 1.6s ease-out both; }
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--ink-10);
+}
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
+.panel {
+  background: var(--ivory);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-cream {
+  background: var(--cream);
+}
+
+.panel-ink {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+.panel-ink .lead {
+  color: rgba(247, 244, 238, 0.8);
+}
+
+.panel-ink .label-caps {
+  color: var(--softgold);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-80);
+  border: 1px solid var(--ink-10);
+  padding: 6px 14px;
+}
+
+.tag .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--moss);
+  display: inline-block;
+}
+
+.number {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: 1.75rem;
+  color: var(--moss);
+  line-height: 1;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  color: var(--ink-30);
+}
+
+/* ---------------------------------------------------------
+   Cover slide
+   --------------------------------------------------------- */
+
+.cover-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-md);
+}
+
+.cover-logo {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-weight: 300;
+  font-size: 4.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.cover-logo em {
+  font-style: italic;
+  color: var(--moss);
+}
+
+.cover-tagline {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--ink-80);
+  max-width: 640px;
+}
+
+.cover-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--ink-30);
+}
+
+.cover-meta .divider {
+  width: 1px;
+  height: 12px;
+  background: var(--ink-30);
+}
+
+/* ---------------------------------------------------------
+   Print / export adjustment
+   --------------------------------------------------------- */
+
+@media print {
+  .slide {
+    width: 1280px;
+    height: 720px;
+    page-break-after: always;
+  }
+}
