@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "pptxgenjs": "4.0.1"
+  },
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.cjs",
+    "export": "python3 tools/export.py",
+    "render:html": "node tools/render-html.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2"
+  }
+}
