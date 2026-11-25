@@ -41,11 +41,11 @@ npx serve .
 
 ## 自治体向け実証提案（試作）
 
-既存の企業マッチング資料は上記のビューアから閲覧できます。自治体向けの試作は `decks/municipal/` に収録しています。外出先で家族に連絡できない場面から始め、つながるQRでの連絡方法と模擬実証の進め方を8枚で示します。
+既存の企業マッチング資料は上記のビューアから閲覧できます。自治体向けの試作は `decks/municipal/` に収録しています。外出先で家族に連絡できない場面から始め、つながるQRでの連絡方法と模擬実証の進め方を11枚で示します。
 
 - [HTMLビューア](decks/municipal/output/index.html)
 - [編集用PowerPoint](decks/municipal/output/deck.pptx)・[提出用PDF](decks/municipal/output/deck.pdf)
-- [全8枚のコンタクトシート](decks/municipal/output/contact-sheet.png)・[各ページのPNG](decks/municipal/output/preview/)
+- [全11枚のコンタクトシート](decks/municipal/output/contact-sheet.png)・[各ページのPNG](decks/municipal/output/preview/)
 - [デザインガイド](docs/design-guide.md)・[技術検証レポート](docs/technical-review.md)・[出典台帳](docs/sources.md)
 
 ### 生成環境
